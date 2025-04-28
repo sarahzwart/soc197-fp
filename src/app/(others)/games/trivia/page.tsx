@@ -25,7 +25,7 @@ const questions = [
     options: [
       "Preventing or reducing the emission of greenhouse gases into the atmosphere",
       "Adapting to climate change impacts",
-      " Increasing greenhouse gas emissions",
+      "Increasing greenhouse gas emissions",
       "Ignoring climate change effects",
     ],
     correctAnswer:
@@ -33,11 +33,11 @@ const questions = [
   },
   {
     question:
-      "WWhich of the following is a direct action to mitigate climate change?",
+      "Which of the following is a direct action to mitigate climate change?",
     options: [
       "Flying more frequently",
       "Building more electric cars",
-      " Increasing fossil fuel use",
+      "Increasing fossil fuel use",
       "Eating more plant-based meals",
     ],
     correctAnswer: "Eating more plant-based meals",
@@ -48,7 +48,7 @@ const questions = [
     options: [
       "Reducing greenhouse gas emissions",
       "Adjusting to new climate realities and minimizing damage",
-      " Increasing industrialization",
+      "Increasing industrialization",
       "Ignoring the impacts on vulnerable communities",
     ],
     correctAnswer: "Adjusting to new climate realities and minimizing damage",
@@ -60,12 +60,12 @@ const questions = [
     correctAnswer: "New York",
   },
   {
-    question: "At COP29, what major commitment was made by world leaders?",
+    question: "At COP 29, what major commitment was made by world leaders?",
     options: [
       "To reduce carbon emissions to zero by 2030",
       "To triple adaptation finance to developing countries by 2030",
       "To phase out fossil fuels by 2025",
-      " To ban all international flights",
+      "To ban all international flights",
     ],
     correctAnswer:
       "To triple adaptation finance to developing countries by 2030",
@@ -95,7 +95,7 @@ const questions = [
     question:
       "Which U.S. state is focusing on the vulnerability of its coastal wetlands to climate change?",
     options: ["Maryland", "California", "Florida", "Hawaii"],
-    correctAnswer: "Diamond",
+    correctAnswer: "Maryland",
   },
   {
     question:
