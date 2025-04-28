@@ -34,7 +34,7 @@ const GamesPage = () => {
         <div className="max-w-3xl">
           <h1 className="text-lg mb-6 font-semibold text-neutral-600">
             Explore interactive games that teach about climate change,
-            sustainability, and action!
+            mitigation, and adaptation!
           </h1>
           <div className="space-y-4 grid grid-cols-1 justify-center items-center w-1/2 mx-auto">
             <Button
@@ -48,6 +48,12 @@ const GamesPage = () => {
               onClick={() => router.push("/games/trivia")}
             >
               Trivia
+            </Button>
+            <Button
+              className="border-2 px-6 py-3 bg-[#b3c0c2] text-white rounded-full shadow hover:bg-[#939d9e]"
+              onClick={() => router.push("/games/myth")}
+            >
+              Myth vs. Fact
             </Button>
           </div>
         </div>
