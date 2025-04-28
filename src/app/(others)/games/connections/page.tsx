@@ -158,9 +158,7 @@ export default function Connections() {
           </div>
         </nav>
       </div>
-      <div className="min-h-screen p-6  mx-auto flex flex-col items-center">
-        <div>
-          <div className="h-[4.4rem] md:h-[5.5rem]">
+      <div className="h-36 md:h-16">
             <AnimatePresence>
               {statusMessage && (
                 <motion.div
@@ -168,7 +166,7 @@ export default function Connections() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
-                  className="w-full"
+                  className="w-full absolute top-20"
                 >
                   <Alert className="w-full max-w-screen-lg mx-auto border-1 border-neutral-950 text-black">
                     <AlertTitle className="md:text-lg">Status</AlertTitle>
@@ -178,6 +176,9 @@ export default function Connections() {
               )}
             </AnimatePresence>
           </div>
+      <div className="min-h-screen p-6  mx-auto flex flex-col items-center">
+        <div>
+          
           <h1 className="text-2xl font-bold text-center">
             MITIGATION & ADAPTATION
           </h1>
