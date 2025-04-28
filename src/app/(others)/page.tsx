@@ -250,7 +250,7 @@ export default function Home() {
                 <br />
                 <br />
                 <b className="text-lg">COP 29 Outcome</b> <br />
-                At COP29, world leaders agreed to a major increase in funding
+                At COP 29, world leaders agreed to a major increase in funding
                 for climate adaptation, committing to triple adaptation finance
                 to developing countries by 2030. This decision recognizes that
                 vulnerable nations urgently need more resources to protect
