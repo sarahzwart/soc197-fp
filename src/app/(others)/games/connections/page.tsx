@@ -158,7 +158,7 @@ export default function Connections() {
           </div>
         </nav>
       </div>
-      <div className="h-36 md:h-16">
+      <div className="h-24 md:h-16">
             <AnimatePresence>
               {statusMessage && (
                 <motion.div

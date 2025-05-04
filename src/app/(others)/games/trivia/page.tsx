@@ -48,7 +48,7 @@ const questions = [
     options: [
       "Reducing greenhouse gas emissions",
       "Adjusting to new climate realities and minimizing damage",
-      "Increasing industrialization",
+      "Decreasing industrialization",
       "Ignoring the impacts on vulnerable communities",
     ],
     correctAnswer: "Adjusting to new climate realities and minimizing damage",
@@ -109,9 +109,25 @@ const questions = [
     correctAnswer:
       "A shift from project-based to anticipatory, strategic financing",
   },
+  {
+    question: "Which groups are more vulnerable to climate impacts than other?",
+    options: ["Elderly", "Minorities", "Poor people", "All of them"],
+    correctAnswer: "All of them",
+  },
 ];
 
+type Question = {
+  question: string;
+  correctAnswer: string;
+  options: string[];
+};
+
 export default function TriviaPage() {
+  const getShuffledQuestions = () => {
+    const shuffled = [...questions].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 5);
+  };
+  const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const router = useRouter();
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -122,11 +138,15 @@ export default function TriviaPage() {
   useEffect(() => {
     if (statusMessage) {
       const timer = setTimeout(() => {
-        setStatusMessage(null); // Hide status message after 6 seconds
+        setStatusMessage(null); 
       }, 6000);
-      return () => clearTimeout(timer); // Cleanup the timer
+      return () => clearTimeout(timer); 
     }
   }, [statusMessage]);
+
+  useEffect(() => {
+    setShuffledQuestions(getShuffledQuestions());
+  }, []);
 
   const handleAnswerChange = (answer: string) => {
     if (!isAnswerSubmitted) {
@@ -135,19 +155,19 @@ export default function TriviaPage() {
   };
 
   const handleSubmitAnswer = () => {
-    if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
+    if (selectedAnswer === shuffledQuestions[currentQuestionIndex].correctAnswer) {
       setCorrectAnswers(correctAnswers + 1);
       setStatusMessage("Correct!✅"); // Set the message to 'Correct!'
     } else {
       setStatusMessage(
-        `❌ Incorrect! The correct answer was ${questions[currentQuestionIndex].correctAnswer}`
+        `❌ Incorrect! The correct answer was ${shuffledQuestions[currentQuestionIndex].correctAnswer}`
       );
     }
     setIsAnswerSubmitted(true);
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < shuffledQuestions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
       setIsAnswerSubmitted(false);
@@ -156,6 +176,7 @@ export default function TriviaPage() {
   };
 
   const handlePlayAgain = () => {
+    setShuffledQuestions(getShuffledQuestions()); // reshuffle new set of 5
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setCorrectAnswers(0);
@@ -163,7 +184,7 @@ export default function TriviaPage() {
     setStatusMessage(null);
   };
 
-  const isGameOver = currentQuestionIndex === questions.length - 1;
+  const isGameOver = currentQuestionIndex === shuffledQuestions.length;
 
   return (
     <div className="bg-gradient-to-b from-[#f4f4f4] via-[#dff7fc] to-[#dbebd5] min-h-screen relative">
@@ -215,14 +236,14 @@ export default function TriviaPage() {
               Choose the correct answer for each question. Each correct answer
               earns you points.
             </p>
-            {!isGameOver ? (
+            {shuffledQuestions.length > 0 && !isGameOver ? (
               <div className="space-y-4">
                 <div className="bg-white shadow-lg p-6 rounded-lg items-center text-center justify-center max-w-full">
                   <h3 className="text-xl font-bold">
-                    {questions[currentQuestionIndex].question}
+                    {shuffledQuestions[currentQuestionIndex].question}
                   </h3>
                   <ul className="list-none space-y-4">
-                    {questions[currentQuestionIndex].options.map(
+                    {shuffledQuestions[currentQuestionIndex].options.map(
                       (option, index) => (
                         <li key={index}>
                           <Button
@@ -235,7 +256,8 @@ export default function TriviaPage() {
                             } ${
                               isAnswerSubmitted
                                 ? option ===
-                                  questions[currentQuestionIndex].correctAnswer
+                                  shuffledQuestions[currentQuestionIndex]
+                                    .correctAnswer
                                   ? "bg-green-500 text-white"
                                   : option === selectedAnswer
                                   ? "bg-red-500 text-white"
@@ -276,8 +298,8 @@ export default function TriviaPage() {
               <div className="bg-white shadow-lg p-6 rounded-lg max-w-full">
                 <h3 className="text-2xl font-bold mb-4">Game Over!</h3>
                 <p className="text-xl mb-4">
-                  You answered {correctAnswers} out of {questions.length}{" "}
-                  questions correctly!
+                  You answered {correctAnswers} out of{" "}
+                  {shuffledQuestions.length} questions correctly!
                 </p>
                 <button
                   className="px-6 py-3 bg-[#96c584] text-white rounded-full shadow hover:bg-[#789e69]"

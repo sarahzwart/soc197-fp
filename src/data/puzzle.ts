@@ -12,5 +12,8 @@ export const puzzle = {
       { name: "CARBON _______", color: "", words: ["FOOTPRINT", "NEUTRAL", "CAPTURE"] },
       { name: "ECO_______", color: "", words: ["SYSTEM", "FRIENDLY", "LOGICAL"] },
       { name: "BIO_______", color: "", words: ["DIVERSITY", "FUELS", "DEGRADABLE"] },
+      { name: "Social Levels", color: "", words: ["MICRO", "MESO", "MACRO"] },
+      { name: "Top Consumption Levels", color: "", words: ["TRANSPORTATION", "HOUSING", "FOOD"] },
+      { name: "Indirect Mitigation", color: "", words: ["VOLUTEERING", "VOTING", "LETTER WRITING"] },
     ],
 };

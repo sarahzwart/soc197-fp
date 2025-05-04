@@ -4,42 +4,52 @@ import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { HomeIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const fullStatements = [
+  { text: "Mitigation and adaptation do the same thing.", isFact: false },
+  { text: "Adaptation is about adjusting to climate impacts.", isFact: true },
+  { text: "Low-Income countries have all their needs fulfilled in terms of adaptation.", isFact: false },
+  { text: "Installing solar panels and buying electric cars are the key to climate mitigation efforts.", isFact: false},
+  { text: "Adaptation means we are giving up on fighting climate change.", isFact: false },
+  { text: "Restoration of coral reefs is an example of climate adaptation.", isFact: true },
+  { text: "There's nothing individuals can do to help.", isFact: false },
+  { text: "Mitigation means stopping all climate change immediately.", isFact: false },
+  { text: "We have reached our goal in supporting low-income countries financially.", isFact: false },
+];
+
+function shuffleAndSelect(array: typeof fullStatements, count: number) {
+  const shuffled = [...array].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
 
 export default function MythVsFactGame() {
   const router = useRouter();
-
-  const statements = [
-    { text: "Mitigation and adaptation do the same thing.", isFact: false },
-    { text: "Adaptation is only about adjusting to climate impacts.", isFact: true },
-    { text: "Low-Income countries have all their needs fulfilled in terms of adaptation.", isFact: false },
-    { text: "Installing solar panels and buying electric cars are the key to climate mitigation efforts.", isFact: false},
-    { text: "Adaptation means we are giving up on fighting climate change.", isFact: false },
-    { text: "Restoration of coral reefs is an example of climate adaptation.", isFact: true },
-    { text: "There's nothing individuals can do to help.", isFact: false },
-    { text: "Mitigation means stopping all climate change immediately.", isFact: false },
-  ];
-
+  const [statements, setStatements] = useState<typeof fullStatements | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [feedback, setFeedback] = useState("");
 
+  useEffect(() => {
+    setStatements(shuffleAndSelect(fullStatements, 5));
+  }, []);
+
   const handleAnswer = (answerIsFact: boolean) => {
-    if (statements[currentIndex].isFact === answerIsFact && answerIsFact === true) {
+    if (statements && statements[currentIndex].isFact === answerIsFact && answerIsFact === true) {
       setScore(score + 1);
-      setFeedback("Correct, its a fact! ✅");
+      setFeedback("Correct, it's a fact! ✅");
     }
-    else if (!statements[currentIndex].isFact === !answerIsFact && answerIsFact === false) {
+    else if (statements && !statements[currentIndex].isFact === !answerIsFact && answerIsFact === false) {
       setScore(score + 1);
-      setFeedback("Correct, its a myth! ✅");
+      setFeedback("Correct, it's a myth! ✅");
     }
     else {
       setFeedback("Incorrect! ❌");
     }
 
     setTimeout(() => {
-      if (currentIndex + 1 < statements.length) {
+      if (statements && (currentIndex + 1 < statements.length) ) {
         setCurrentIndex(currentIndex + 1);
         setFeedback("");
       } else {
@@ -49,12 +59,20 @@ export default function MythVsFactGame() {
   };
 
   const restartGame = () => {
+    setStatements(shuffleAndSelect(fullStatements, 5));
     setCurrentIndex(0);
     setScore(0);
     setShowResult(false);
     setFeedback("");
   };
 
+  // (Optional) Shuffle on first mount too
+  useEffect(() => {
+    setStatements(shuffleAndSelect(fullStatements, 5));
+  }, []);
+
+  if (!statements) return null;
+  
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#f4f4f4] via-[#dff7fc] to-[#dbebd5]">
       <div className="fixed top-0 left-0 w-full z-50 bg-white/60 backdrop-blur-md shadow-md">
